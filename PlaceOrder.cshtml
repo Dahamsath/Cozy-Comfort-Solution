@@ -1,0 +1,38 @@
+﻿@model CozyComfort.Client.Models.Order
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Place Your Order</h4>
+            </div>
+            <div class="card-body">
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <form asp-action="PlaceOrder" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Your Name</label>
+                        <input type="text" class="form-control" value="@Context.Session.GetString("Username")" readonly />
+                        <small class="text-muted">Logged in as: @Context.Session.GetString("Username")</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BlanketId" class="form-label">Blanket ID</label>
+                        <input asp-for="BlanketId" type="number" class="form-control" required placeholder="Enter ID from catalog" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Quantity" class="form-label">Quantity</label>
+                        <input asp-for="Quantity" type="number" class="form-control" required min="1" value="1" />
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Confirm Order</button>
+                    <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

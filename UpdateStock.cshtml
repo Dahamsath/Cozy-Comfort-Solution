@@ -1,0 +1,54 @@
+﻿@{
+    var blankets = ViewBag.Blankets as List<CozyComfort.Client.Models.Blanket>;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h4 class="mb-0"><i class="fas fa-boxes"></i> Replenish Stock</h4>
+            </div>
+            <div class="card-body">
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+
+                @if (blankets != null && blankets.Count > 0)
+                {
+                    <form asp-action="UpdateStock" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Select Blanket Model</label>
+                            <select name="blanketId" class="form-select" required>
+                                <option value="">-- Choose a Blanket --</option>
+                                @foreach (var item in blankets)
+                                {
+                                    <option value="@item.Id">@item.ModelName (Current Stock: @item.StockLevel)</option>
+                                }
+                            </select>
+                            <small class="text-muted">Select the blanket you want to add stock to.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quantity to Add</label>
+                            <input type="number" name="additionalStock" class="form-control" required min="1" placeholder="e.g. 50" />
+                            <small class="text-muted">Enter the number of new units received.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 text-dark fw-bold">Update Inventory</button>
+                        <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Cancel</a>
+                    </form>
+                }
+                else
+                {
+                    <div class="alert alert-info">No blankets found in the system. Please add a new blanket first.</div>
+                    <a asp-action="AddBlanket" class="btn btn-primary w-100">Add New Blanket</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

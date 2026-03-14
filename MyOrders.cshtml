@@ -1,0 +1,56 @@
+﻿@model List<CozyComfort.Client.Models.Order>
+
+<h2 class="fw-bold mb-4"><i class="fas fa-history"></i> My Order History</h2>
+
+<a asp-action="Index" class="btn btn-outline-primary mb-3">Back to Catalog</a>
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table table-hover shadow-sm bg-white">
+        <thead class="table-dark">
+            <tr>
+                <th>Order ID</th>
+                <th>Blanket ID</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Distributor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>#@item.Id</td>
+                    <td>@item.BlanketId</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        @if (item.Status == "Pending")
+                        {
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        }
+                        else if (item.Status == "Approved")
+                        {
+
+                            <span class="badge bg-info text-dark">Approved</span>
+                        }
+                        else if (item.Status == "Shipped")
+                        {
+
+                            <span class="badge bg-success">Shipped</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge bg-secondary">@item.Status</span>
+                        }
+                    </td>
+                    <td>@(item.AssignedDistributor ?? "-")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-light border">You haven't placed any orders yet.</div>
+}

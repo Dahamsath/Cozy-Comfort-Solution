@@ -1,0 +1,55 @@
+﻿@model CozyComfort.Client.Models.Blanket
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-plus-circle"></i> Add New Blanket to Inventory</h4>
+            </div>
+            <div class="card-body">
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["Error"]</div>
+                }
+
+                <form asp-action="AddBlanket" method="post">
+                    <div class="mb-3">
+                        <label asp-for="ModelName" class="form-label">Model Name</label>
+                        <input asp-for="ModelName" class="form-control" required placeholder="e.g. Winter Warmth" />
+                        <span asp-validation-for="ModelName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Material" class="form-label">Material</label>
+                        <input asp-for="Material" class="form-control" required placeholder="e.g. 100% Cotton" />
+                        <span asp-validation-for="Material" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Price" class="form-label">Price ($)</label>
+                            <input asp-for="Price" type="number" step="0.01" class="form-control" required placeholder="e.g. 45.00" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="StockLevel" class="form-label">Initial Stock Level</label>
+                            <input asp-for="StockLevel" type="number" class="form-control" required placeholder="e.g. 100" />
+                            <span asp-validation-for="StockLevel" class="text-danger"></span>
+                            <small class="text-muted">This will be the total available stock.</small>
+                        </div>
+                    </div>
+
+                    <!-- Optional: Production Capacity -->
+                    <div class="mb-3">
+                        <label asp-for="ProductionCapacity" class="form-label">Production Capacity</label>
+                        <input asp-for="ProductionCapacity" type="number" class="form-control" value="0" placeholder="Optional" />
+                        <span asp-validation-for="ProductionCapacity" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Add Blanket & Update Stock</button>
+                    <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

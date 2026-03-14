@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CozyComfort.API/CozyComfort.API.csproj" />
+  <Project Path="CozyComfort.Client/CozyComfort.Client.csproj" />
+</Solution>
